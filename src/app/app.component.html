@@ -1,0 +1,28 @@
+<div *ngIf=!isGameStarted class="startBtn">
+  <button class="btn prime-btn" (click)="startGame()"> S T A R T   G A M E</button>
+</div>
+<div *ngIf="isGameStarted">
+  <h1>Computer</h1><br>
+  <span *ngIf="isComputerPass$ | async" style="color: brown;"> me pass</span>
+  <div class="computerHandPanel">
+    
+    <h2 *ngIf="!isGameStarted">SCORE: {{computerScore$ | async}}</h2>
+    <app-card [card]="card" [i]="i" *ngFor="let card of computerHand$ | async;  index as i"></app-card>
+  </div>
+  <div class="computerHandPanel">
+    <span style="padding-top:60px;">Tap the deck ===></span>
+    <img src="assets/deckBack.png" alt="" (click)="getCard()">
+    <button class="btn btn-info" style="margin-left:20px; padding:20px;" (click)="humanPass()">STOP</button>
+  </div>
+  <br>
+  <h1>Player</h1><br>
+  <div class="computerHandPanel">
+    
+    <h2>SCORE: {{humanScore$ | async}}</h2>
+    <app-card [card]="card" *ngFor="let card of humanHand$ | async"></app-card>
+  </div>
+</div>
+<div *ngIf="winner$  | async as winner"></div>
+<div *ngIf="winner.length > 0" id="dimScreen" (click)="resetGame()">
+  <span class="winStr">{{winString}}</span>
+</div>
